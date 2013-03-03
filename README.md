@@ -10,10 +10,10 @@ Being inspired by Node.js, we've tried to replicate most of the features in it. 
 
 To compile the examples or the library you need CMake 2.8 or higher.
 
-### Installing CMAKE on Debian \ Ubuntu \ Kubuntu etc.
+__Installing CMAKE on Debian \ Ubuntu \ Kubuntu etc.__
 `sudo apt-get install cmake`
 
-### Installing CMAKE on Fedora \ RedHat \ Centos
+__Installing CMAKE on Fedora \ RedHat \ Centos__
 `sudo yum install cmake`
 
 ### I have CMAKE what now?
