@@ -5,3 +5,25 @@ __Apricot__ is a web application development library for C++. It tries to create
 simple yet effective way for programmers to create blazing fast websites in a natural way.
 
 Being inspired by Node.js, we've tried to replicate most of the features in it. Like Node, it has a built in HTTP server that can be customized according to the users project environment (the developers can specify the server’s name, maximum number of requests, single threaded or multi-threaded and many more features).
+
+## How do I compile the examples?
+
+
+To compile the examples or the library you need CMake 2.8 or higher.
+
+### Installing CMAKE on Debian \ Ubuntu \ Kubuntu etc.
+`sudo apt-get install cmake`
+
+### Installing CMAKE on Fedora \ RedHat \ Centos
+`sudo yum install cmake`
+
+## Compiling the examples on Unix
+`
+git clone https://github.com/FeralLabs/Apricot.git
+cd Apricot/examples/BasicHTTP
+mkdir build
+cd build
+cmake ..
+make
+`
+And that's all
