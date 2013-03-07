@@ -29,7 +29,7 @@ public:
 
 
 	template<typename T>
-	Log& operator<<(T in)
+	Log& operator<<(const T& in)
 	{
 		if(hasArgs == false)
 			std::cout << "[*] ";
