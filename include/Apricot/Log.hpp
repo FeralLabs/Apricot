@@ -5,7 +5,8 @@
 #define ERROR_TEXT  "[ ERROR ] "
 #define NOTICE_TEXT "          "
 
-enum TLogLevel { logERROR, logNOTICE, logWARNING, logDEBUG };
+
+enum TLogLevel {ERROR, NOTICE, WARNING, DEBUG};
 
 class Log
 {
@@ -13,7 +14,7 @@ public:
 	short type;
 	bool hasArgs;
 
-	static Log& trigger(short aType = logNOTICE)
+	static Log& trigger(short aType = NOTICE)
 	{
 		static Log instance;
 		instance.type = aType;
@@ -26,23 +27,14 @@ public:
 		return instance;
 	}
 
+
 	template<typename T>
 	Log& operator<<(T in)
 	{
-		switch(type) {
-			case logERROR:
-				if(hasArgs == false) {
-					std::cerr << "[ date ]" <<  ERROR_TEXT;
-				}
+		if(hasArgs == false)
+			std::cout << "[*] ";
 
-				std::cerr << in;
-			break;
-			default:
-				if(hasArgs == false) {
-					std::cout << "[ date ]" << NOTICE_TEXT;
-				}
-				std::cout << in;
-		}
+		std::cout << in;
 		
 		hasArgs = true;
 
@@ -50,7 +42,9 @@ public:
 	}
 
 private:
-	Log() : type(logNOTICE), hasArgs(false) {};
+	Log() : type(NOTICE), hasArgs(false) {
+
+	};
 	Log(Log const&);
 	void operator=(Log const&);
 };

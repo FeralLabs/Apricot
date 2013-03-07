@@ -3,11 +3,9 @@
 
 int main(int argc, char const *argv[])
 {
-	Log::trigger(logNOTICE) << "da" << true;
+	Log::trigger(NOTICE) << "da";
 
-
-	int var = 176;
-	Log::trigger(logERROR) << "This is a long text" << var;
+	Log::trigger(ERROR) << "This is a long text";
 	/* code */
 	return 0;
 }
