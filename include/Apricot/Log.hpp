@@ -27,7 +27,7 @@ public:
 	}
 
 	template<typename T>
-	Log& operator<<(T in)
+	Log& operator<<(const T& in)
 	{
 		switch(type) {
 			case logERROR:
