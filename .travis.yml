@@ -1,0 +1,13 @@
+language:
+    - cpp
+
+compiler:
+    - gcc
+
+before_script: 
+    - cd examples/BasicHTTP
+    - mkdir build
+    - cd build
+    - cmake ..
+script:
+    - make
