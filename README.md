@@ -1,3 +1,5 @@
+![Travis](https://travis-ci.org/FeralLabs/Apricot.svg?branch=master)
+
 Welcome !
 =======
 
