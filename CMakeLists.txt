@@ -8,6 +8,8 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -g")
 
 set(APRICOT_HEADERS
 	include/Apricot/Log.hpp
+        include/Apricot/Argument.hpp
+        include/Apricot/Apricot.hpp
     )
 
 set(APRICOT_SOURCES

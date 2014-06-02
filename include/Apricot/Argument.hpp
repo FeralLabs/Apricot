@@ -31,6 +31,8 @@ namespace Apricot {
     class ParamParser
     {
         public:
+            bool didParse;
+
             std::string get(std::string what) {
                 if(what != "" && what.find(" ") == std::string::npos) {
                     return Container[what];
@@ -60,24 +62,47 @@ namespace Apricot {
                 }
             }
 
-            void define(std::string LongName, std::string ShortName, std::string Description) {
+            bool isset(std::string what) {
+                return !Container[what].empty();
+            }
+            
+            ParamParser* undefine(std::string what) {
+                bool found = false;
+                for(std::vector<ApricotParam*>::iterator It = ApricotParamContainer.begin(); It != ApricotParamContainer.end(); ++It) {
+                    if ((**It).LongName == what || (**It).ShortName == what) {
+                        It = ApricotParamContainer.erase(It);
+                        found = true;
+                        break; // otherwise you'll get a nice Seg Fault
+                    }
+                }
+
+                if ( found == false ) {
+                    std::cout << "No param named " << what;
+                }
+
+                return this;
+            }
+
+            ParamParser* define(std::string LongName, std::string ShortName, std::string Description) {
+                if (didParse == true )
+                    std::cout << "Aloc after parse";
+
                 ApricotParamContainer.push_back(new ApricotParam(LongName, ShortName, Description));
+                return this;
             }
 
             void printHelp() {
-                std::cout << HelpLine << std::endl << std::endl;
+                if (!UsageLine.empty() )
+                    std::cout << UsageLine << HelpLine << std::endl << std::endl;
+                else
+                    std::cout << HelpLine << std::endl << std::endl;
+
                 for(std::vector<ApricotParam*>::iterator It = ApricotParamContainer.begin(); 
                     It != ApricotParamContainer.end(); ++It) {
                     (**It).doPrintHelp();
                 }
             }
-
-            void Debug() {
-                for(std::map<std::string, std::string>::iterator It = Container.begin(); It != Container.end(); It++) {
-                    std::cout << std::endl << It->first << " is " << It->second;
-                }
-            }
-            
+ 
             void doParse(int argc, const char ** argv) {
                 std::string Name, Value;
                 for(int i = 1; i < argc; i++) {
@@ -103,24 +128,33 @@ namespace Apricot {
                         Value = "1";
                     }
                     set(Name, Value);
+                    didParse = true;
                 }
                  
                 ArgumentCount = argc + 1;
      
             }
+            
+            ParamParser* setUsageLine ( std::string what ) {
+                UsageLine = what;
+                return this;
+            }
 
-            void setHelpLine ( std::string what ) {
+            ParamParser* setHelpLine ( std::string what ) {
                 HelpLine = what;
+                return this;
             }
 
             ParamParser() {
+                didParse = false;
                 //doParse(argc, argv); BUG FIX :D :D :D
             }
 
         private:
             int ArgumentCount;
-            std::string HelpLine;
+            std::string HelpLine, UsageLine;
             std::vector<ApricotParam*> ApricotParamContainer;
             std::map<std::string, std::string> Container;
         };
     }
+

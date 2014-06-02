@@ -1,25 +1,22 @@
 #include <iostream>
-#include <Apricot/Log.hpp>
-#include <Apricot/Argument.hpp>
+#include <Apricot/Apricot.hpp>
 
 using namespace Apricot;
 
 int main(int argc, const char *argv[])
 {
-    ParamParser *Parser = new Apricot::ParamParser();
-    Parser -> setHelpLine ( "Usage: basicHTTP [OPTIONS]\nDoes some cool stuff" );
-    Parser -> define ( "port", "p", "Sets the current port for the server");
-    Parser -> define ( "threads", "t", "Number of Threads");
-    Parser -> define ( "help", "h", "Help");
-    Parser -> doParse(argc, argv);
+    Apricot::Apricot *Application = new Apricot::Apricot ();
     
-    if ( Parser -> getBool ("help")) {
-        Parser -> printHelp();
-        return 0;
-    }
+    Apricot::ParamParser *Parser = Application -> Parser;
+    
+    Parser -> define ( "hello", "hw", "Says Hi" ) 
+           -> define ("da", "da", "daaa");
 
-    Log::trigger(ERROR) << "Threads is "  << Parser -> get("threads");
-    Log::trigger(ERROR) << "Port is " << Parser -> getInt("port");
+    Application -> init (argc, argv);
+
+    if ( Parser -> isset ( "hello" ) ) {
+        std::cout << Parser -> get ( "hello" );
+    }
 
     /* code */
     return 0;
