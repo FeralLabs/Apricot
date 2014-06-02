@@ -28,7 +28,7 @@ namespace Apricot {
 
     };
     
-    class Argument
+    class ParamParser
     {
         public:
             std::string get(std::string what) {
@@ -46,7 +46,18 @@ namespace Apricot {
             }
 
             void set(std::string what, std::string with) {
-                Container [ what ] = with;
+                bool found = false;
+                for(std::vector<ApricotParam*>::iterator It = ApricotParamContainer.begin(); It != ApricotParamContainer.end(); ++It) {
+                    if ( (**It).LongName == what || (**It).ShortName == what) {
+                        Container [ (**It).LongName ] = with;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if ( found == false ) {
+                    std::cout << "Argument not found.";
+                }
             }
 
             void define(std::string LongName, std::string ShortName, std::string Description) {
@@ -91,7 +102,6 @@ namespace Apricot {
                     } else {
                         Value = "1";
                     }
-                    
                     set(Name, Value);
                 }
                  
@@ -103,8 +113,8 @@ namespace Apricot {
                 HelpLine = what;
             }
 
-            Argument(int argc, const char ** argv) {
-                doParse(argc, argv);
+            ParamParser() {
+                //doParse(argc, argv); BUG FIX :D :D :D
             }
 
         private:
