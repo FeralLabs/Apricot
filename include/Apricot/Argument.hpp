@@ -24,8 +24,6 @@ namespace Apricot {
             void doPrintHelp() {
                 std::cout << "-" << this->LongName << ",  --" << this->ShortName << "\t\t" << this->Description << std::endl;
             }
-
-
     };
     
     class ParamParser

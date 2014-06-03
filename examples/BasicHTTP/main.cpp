@@ -1,23 +1,27 @@
 #include <iostream>
 #include <Apricot/Apricot.hpp>
+#include <Apricot/Worker.hpp>
 
 using namespace Apricot;
 
 int main(int argc, const char *argv[])
 {
-    Apricot::Apricot *Application = new Apricot::Apricot ();
-    
+    Apricot::Application *Application = new Apricot::Application ();
+
     Apricot::ParamParser *Parser = Application -> Parser;
-    
+
     Parser -> define ( "hello", "hw", "Says Hi" ) 
-           -> define ("da", "da", "daaa");
+           -> define ( "port", "p", "Prints the current port status");
 
     Application -> init (argc, argv);
 
+    RequestPool<Request*> Pool;
+    Worker* w1 = new Worker(Pool);
+    w1->start();
+    
     if ( Parser -> isset ( "hello" ) ) {
-        std::cout << Parser -> get ( "hello" );
+        *Application -> Log << "da";
     }
 
-    /* code */
     return 0;
 }
